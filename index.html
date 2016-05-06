@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <!-- Angular -->
+<script src="js/angularfire.min.js"></script>
+
+<!-- Firebase -->
+<script src="js/firebase.js"></script>
+
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter" ng-controller='post'>
+
+    <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title"  >Posting Demo(-order , clear the fields)</h1>
+        <button class="button button-icon icon ion-camera" ng-click="upload()" ></button>
+      </ion-header-bar>    
+      <ion-content >
+         
+      
+          
+          <div class="list">
+                <label class="item item-input">
+                <input type="text" placeholder="First Name" ng-model="name">
+                </label>
+                <label class="item item-input">
+                <input type="text" placeholder="Product Code" ng-model="code">
+                </label>
+                
+                 <label class="item item-input">
+                <input type="text" placeholder="Online Image Link" ng-model="product_image">
+                </label>
+                
+                <label class="item item-input">
+                <textarea placeholder="Description" ng-model="des"></textarea>
+                </label>
+                <button class="button button-block button-royal" ng-click="post(name,code,des,product_image)">Post</button>
+        </div>
+        <ion-list>
+            <ion-item>
+                 <div class="card" ng-repeat="product in products | orderBy:'-product_name'">
+               <div class="list card">
+
+              <div class="title">
+
+                <h2> {{product.product_name}}</h2>
+                <p>CODE:{{product.product_code}} </p>
+              </div>
+
+              <div class="item item-body">
+                <img class="full-image" src="{{product.product_image}}">
+                <p>
+                  {{product.product_description}}
+                </p>
+
+              </div>
+
+            </div>
+                </div>
+           
+               <div class="row" ng-repeat="image in images">
+            <div class="col col-25" ng-if="$index < images.length">
+                <img ng-src="data:image/jpeg;base64,{{images[$index].image}}" width="100%" />
+                <button class="button button-icon ion-close-circled" ng-click="removeImage(image)"></button>
+            </div>
+           
+             </div>   
+           
+            </ion-item>
+        </ion-list>
+      </ion-content> <!--ng-show="signedInUser" -->
+     
+    </ion-pane>
+  </body>
+</html>
